@@ -246,7 +246,7 @@ const SobreMim: React.FC = () => {
               href="https://api.whatsapp.com/send?phone=5521992078455" 
               className="bg-[#2A5C5A] text-white px-8 py-4 rounded-lg shadow-lg font-bold text-lg hover:bg-[#1E4846] transition"
             >
-              Comece Sua Transformação
+              Comece Sua Transformação'
             </a>
           </motion.div>
         </div>
