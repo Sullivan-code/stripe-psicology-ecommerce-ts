@@ -34,7 +34,7 @@ function DesktopNavbar() {
       <Link href="/products">
         <Button className="flex items-center gap-2 text-gray-800 bg-[#B2E3DC] transition-all duration-300 hover:bg-[#A9D7D3]">
           <BoxesIcon className="w-4 h-4" />
-          <span className="hidden lg:inline">Produtos</span>
+          <span className="hidden lg:inline">Produtoss</span>
         </Button>
       </Link>
 
