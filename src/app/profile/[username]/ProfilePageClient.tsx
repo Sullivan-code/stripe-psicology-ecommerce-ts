@@ -68,7 +68,7 @@ function ProfilePageClient({
     const result = await updateProfile(formData);
     if (result.success) {
       setShowEditDialog(false);
-      toast.success("Perfil atualizado com sucesso");
+      toast.success("Profile updated successfully");
     }
   };
 
@@ -80,7 +80,7 @@ function ProfilePageClient({
       await toggleFollow(user.id);
       setIsFollowing(!isFollowing);
     } catch (error) {
-      toast.error("Falha ao atualizar status de seguimento");
+      toast.error("Failed to update follow status");
     } finally {
       setIsUpdatingFollow(false);
     }
@@ -96,74 +96,67 @@ function ProfilePageClient({
     <div className="max-w-3xl mx-auto">
       <div className="grid grid-cols-1 gap-6">
         <div className="w-full max-w-lg mx-auto">
-          <Card className="bg-card border border-muted/50 hover:border-primary/20 transition-colors duration-300">
+          <Card className="bg-card">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <Avatar className="w-24 h-24 border-2 border-primary/20">
+                <Avatar className="w-24 h-24">
                   <AvatarImage src={user.image ?? "/avatar.png"} />
                 </Avatar>
                 <h1 className="mt-4 text-2xl font-bold">{user.name ?? user.username}</h1>
                 <p className="text-muted-foreground">@{user.username}</p>
                 <p className="mt-2 text-sm">{user.bio}</p>
 
-                {/* ESTATÍSTICAS DO PERFIL */}
+                {/* PROFILE STATS */}
                 <div className="w-full mt-6">
                   <div className="flex justify-between mb-4">
-                    <div className="hover:text-primary transition-colors">
+                    <div>
                       <div className="font-semibold">{user._count.following.toLocaleString()}</div>
-                      <div className="text-sm text-muted-foreground">Seguindo</div>
+                      <div className="text-sm text-muted-foreground">Following</div>
                     </div>
-                    <Separator orientation="vertical" className="h-8" />
-                    <div className="hover:text-primary transition-colors">
+                    <Separator orientation="vertical" />
+                    <div>
                       <div className="font-semibold">{user._count.followers.toLocaleString()}</div>
-                      <div className="text-sm text-muted-foreground">Seguidores</div>
+                      <div className="text-sm text-muted-foreground">Followers</div>
                     </div>
-                    <Separator orientation="vertical" className="h-8" />
-                    <div className="hover:text-primary transition-colors">
+                    <Separator orientation="vertical" />
+                    <div>
                       <div className="font-semibold">{user._count.posts.toLocaleString()}</div>
-                      <div className="text-sm text-muted-foreground">Postagens</div>
+                      <div className="text-sm text-muted-foreground">Posts</div>
                     </div>
                   </div>
                 </div>
 
-                {/* BOTÕES DE SEGUIR E EDITAR */}
+                {/* "FOLLOW & EDIT PROFILE" BUTTONS */}
                 {!currentUser ? (
                   <SignInButton mode="modal">
-                    <Button className="w-full mt-4 hover:bg-gradient-to-r from-pink-500 to-purple-500">
-                      Seguir
-                    </Button>
+                    <Button className="w-full mt-4">Follow</Button>
                   </SignInButton>
                 ) : isOwnProfile ? (
-                  <Button 
-                    className="w-full mt-4 hover:bg-gradient-to-r from-blue-500 to-teal-400" 
-                    onClick={() => setShowEditDialog(true)}
-                  >
+                  <Button className="w-full mt-4" onClick={() => setShowEditDialog(true)}>
                     <EditIcon className="size-4 mr-2" />
-                    Editar Perfil
+                    Edit Profile
                   </Button>
                 ) : (
                   <Button
-                    className={`w-full mt-4 ${isFollowing ? 
-                      "hover:bg-gradient-to-r from-red-500 to-pink-500" : 
-                      "hover:bg-gradient-to-r from-green-500 to-blue-500"}`}
+                    className="w-full mt-4"
                     onClick={handleFollow}
                     disabled={isUpdatingFollow}
                     variant={isFollowing ? "outline" : "default"}
                   >
-                    {isFollowing ? "Deixar de seguir" : "Seguir"}
+                    {isFollowing ? "Unfollow" : "Follow"}
                   </Button>
                 )}
 
-                {/* LOCALIZAÇÃO E WEBSITE */}
+                {/* LOCATION & WEBSITE */}
                 <div className="w-full mt-6 space-y-2 text-sm">
                   {user.location && (
-                    <div className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+                    <div className="flex items-center text-muted-foreground">
                       <MapPinIcon className="size-4 mr-2" />
                       {user.location}
                     </div>
                   )}
                   {user.website && (
-                    <div className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+                    <div className="flex items-center text-muted-foreground">
                       <LinkIcon className="size-4 mr-2" />
                       <a
                         href={
@@ -177,9 +170,9 @@ function ProfilePageClient({
                       </a>
                     </div>
                   )}
-                  <div className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+                  <div className="flex items-center text-muted-foreground">
                     <CalendarIcon className="size-4 mr-2" />
-                    Entrou em {formattedDate}
+                    Joined {formattedDate}
                   </div>
                 </div>
               </div>
@@ -192,18 +185,18 @@ function ProfilePageClient({
             <TabsTrigger
               value="posts"
               className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary
-               data-[state=active]:bg-transparent px-6 font-semibold hover:text-primary"
+               data-[state=active]:bg-transparent px-6 font-semibold"
             >
               <FileTextIcon className="size-4" />
-              Postagens
+              Posts
             </TabsTrigger>
             <TabsTrigger
               value="likes"
               className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary
-               data-[state=active]:bg-transparent px-6 font-semibold hover:text-primary"
+               data-[state=active]:bg-transparent px-6 font-semibold"
             >
               <HeartIcon className="size-4" />
-              Curtidas
+              Likes
             </TabsTrigger>
           </TabsList>
 
@@ -212,7 +205,7 @@ function ProfilePageClient({
               {posts.length > 0 ? (
                 posts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
               ) : (
-                <div className="text-center py-8 text-muted-foreground">Nenhuma postagem ainda</div>
+                <div className="text-center py-8 text-muted-foreground">No posts yet</div>
               )}
             </div>
           </TabsContent>
@@ -222,46 +215,44 @@ function ProfilePageClient({
               {likedPosts.length > 0 ? (
                 likedPosts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
               ) : (
-                <div className="text-center py-8 text-muted-foreground">Nenhuma postagem curtida</div>
+                <div className="text-center py-8 text-muted-foreground">No liked posts to show</div>
               )}
             </div>
           </TabsContent>
         </Tabs>
 
         <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-          <DialogContent className="sm:max-w-[500px] border border-primary/20">
+          <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
-              <DialogTitle>Editar Perfil</DialogTitle>
+              <DialogTitle>Edit Profile</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label>Nome</Label>
+                <Label>Name</Label>
                 <Input
                   name="name"
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                  placeholder="Seu nome"
-                  className="focus:border-primary/50"
+                  placeholder="Your name"
                 />
               </div>
               <div className="space-y-2">
-                <Label>Biografia</Label>
+                <Label>Bio</Label>
                 <Textarea
                   name="bio"
                   value={editForm.bio}
                   onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })}
-                  className="min-h-[100px] focus:border-primary/50"
-                  placeholder="Fale sobre você"
+                  className="min-h-[100px]"
+                  placeholder="Tell us about yourself"
                 />
               </div>
               <div className="space-y-2">
-                <Label>Localização</Label>
+                <Label>Location</Label>
                 <Input
                   name="location"
                   value={editForm.location}
                   onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
-                  placeholder="Onde você está?"
-                  className="focus:border-primary/50"
+                  placeholder="Where are you based?"
                 />
               </div>
               <div className="space-y-2">
@@ -270,21 +261,15 @@ function ProfilePageClient({
                   name="website"
                   value={editForm.website}
                   onChange={(e) => setEditForm({ ...editForm, website: e.target.value })}
-                  placeholder="Seu site pessoal"
-                  className="focus:border-primary/50"
+                  placeholder="Your personal website"
                 />
               </div>
             </div>
             <div className="flex justify-end gap-3">
               <DialogClose asChild>
-                <Button variant="outline">Cancelar</Button>
+                <Button variant="outline">Cancel</Button>
               </DialogClose>
-              <Button 
-                onClick={handleEditSubmit}
-                className="hover:bg-gradient-to-r from-blue-500 to-teal-400"
-              >
-                Salvar Alterações
-              </Button>
+              <Button onClick={handleEditSubmit}>Save Changes</Button>
             </div>
           </DialogContent>
         </Dialog>
