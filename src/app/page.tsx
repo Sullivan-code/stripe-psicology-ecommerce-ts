@@ -28,7 +28,7 @@ export default function Home() {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-16">
         <div className="max-w-4xl w-full text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-[#2B2B28] mb-8">
-            Raphael Alcantara - Psicólogo Clínico!!!!!!o ultimo
+            Raphael Alcantara - Psicólogo Clínico!!!!!!o ultimo!
           </h1>
 
           {/* Seção Quem sou eu */}
